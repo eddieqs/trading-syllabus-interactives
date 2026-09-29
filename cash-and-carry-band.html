@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cash and Carry Band</title>
+<style>
+
+:root{
+  --ink:#1c2530;--slate:#3d4d5c;--muted:#70808f;
+  --crimson:#9b2335;--crimson-soft:#c4415a;
+  --paper:#fbfaf8;--panel:#f1f4f6;--panel-warm:#f7f3ef;
+  --rule:#d5dbe0;--rule-strong:#aab5bf;
+  --pos:#1f6b45;--neg:#9b2335;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:Georgia,'Times New Roman',serif;font-size:17px;line-height:1.68}
+.wrap{max-width:760px;margin:0 auto;padding:0 26px 120px}
+h1,h2,h3,h4,.sans{font-family:'Helvetica Neue',Helvetica,Arial,sans-serif}
+.masthead{border-bottom:3px solid var(--ink);padding:64px 0 26px;margin-bottom:44px}
+.masthead .kicker{font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:12.5px;letter-spacing:.09em;color:var(--crimson);font-weight:600;margin:0 0 14px}
+h1{font-size:40px;line-height:1.14;font-weight:700;letter-spacing:-.021em;margin:0 0 16px}
+.standfirst{font-size:19px;color:var(--slate);margin:0;line-height:1.6}
+.part{margin:80px 0 0;padding:14px 0 0;border-top:3px solid var(--ink)}
+.part .pk{font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:12.5px;letter-spacing:.09em;color:var(--crimson);font-weight:600;margin:0 0 6px}
+.part h2.pt{border:none;margin:0;padding:0;font-size:29px}
+.part p.pl{color:var(--slate);font-size:16.5px;margin:10px 0 0}
+h2{font-size:25px;font-weight:700;letter-spacing:-.014em;margin:66px 0 6px;padding-top:26px;border-top:1px solid var(--rule);line-height:1.24}
+h2 .num{color:var(--crimson);font-variant-numeric:tabular-nums;margin-right:.5em}
+h3{font-size:18.5px;font-weight:600;margin:38px 0 10px;color:var(--ink)}
+h4{font-size:15px;font-weight:600;margin:24px 0 6px;color:var(--slate)}
+p{margin:0 0 16px}
+ul,ol{margin:0 0 18px;padding-left:22px}
+li{margin-bottom:9px}
+strong,b{font-weight:700}
+a{color:var(--crimson);text-decoration-thickness:1px;text-underline-offset:2px}
+.goal{background:var(--panel-warm);border-left:3px solid var(--crimson);padding:15px 20px;margin:18px 0 30px;font-size:15.5px;color:var(--slate)}
+.goal b{color:var(--ink)}
+.m{font-family:Georgia,serif;font-style:italic;white-space:nowrap}
+.m .fn{font-style:normal}
+sub,sup{font-size:.7em;font-style:normal}
+.eq{text-align:center;margin:26px 0;font-size:19px;font-family:Georgia,serif;line-height:1.9}
+.eq.boxed{border:1.5px solid var(--ink);background:#fff;padding:18px 14px;border-radius:2px}
+.eq .label{display:block;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:11.5px;font-style:normal;color:var(--muted);letter-spacing:.05em;margin-top:9px}
+.eq.small{font-size:17px}
+.frac{display:inline-block;vertical-align:middle;text-align:center;font-size:.86em;margin:0 .18em}
+.frac .top{display:block;border-bottom:1px solid var(--ink);padding:0 .3em}
+.frac .bot{display:block;padding:0 .3em}
+table{border-collapse:collapse;width:100%;margin:24px 0;font-size:15.5px}
+th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--rule);vertical-align:top}
+th{font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:12.5px;font-weight:600;color:var(--slate);border-bottom:1.5px solid var(--rule-strong)}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+td.pos{color:var(--pos)}td.neg{color:var(--neg)}
+tr.total td{font-weight:700;border-bottom:none;border-top:1.5px solid var(--ink);background:var(--panel)}
+.note{background:var(--panel);padding:16px 20px;margin:24px 0;border-radius:2px;font-size:16px}
+.note .h{display:block;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:12.5px;font-weight:600;color:var(--crimson);letter-spacing:.05em;margin-bottom:7px}
+.note p:last-child{margin-bottom:0}
+.snag{border:1px solid var(--crimson);background:#fff;padding:17px 21px;margin:26px 0;border-radius:2px}
+.snag .h{display:block;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:12.5px;font-weight:700;color:var(--crimson);letter-spacing:.04em;margin-bottom:8px}
+.snag p:last-child{margin-bottom:0}
+.verdict{font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:14px;font-weight:600;padding:9px 14px;border-radius:2px;margin:14px 0 6px;display:inline-block}
+.verdict.yes{background:#e6f1eb;color:var(--pos)}
+.verdict.no{background:#f7e6e9;color:var(--neg)}
+.q{border-top:1.5px solid var(--ink);border-bottom:1.5px solid var(--ink);padding:18px 0;margin:34px 0}
+.q .qh{font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:12.5px;font-weight:600;color:var(--crimson);letter-spacing:.05em;margin-bottom:10px}
+.q p{margin:0 0 14px}
+.q button{font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:13.5px;font-weight:500;background:var(--ink);color:#fff;border:none;padding:8px 16px;border-radius:2px;cursor:pointer}
+.q button:hover{background:var(--crimson)}
+.q button:focus-visible{outline:2.5px solid var(--crimson-soft);outline-offset:2px}
+.ans{display:none;margin-top:16px;padding-left:16px;border-left:2px solid var(--rule-strong);font-size:16px}
+.ans.open{display:block}
+.ans p:last-child{margin-bottom:0}
+.w{border:1px solid var(--rule-strong);background:#fff;margin:32px 0;border-radius:3px;overflow:hidden}
+.w-head{background:var(--ink);color:#fff;padding:11px 18px;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:13px;font-weight:600;letter-spacing:.02em}
+.w-body{padding:20px}
+.w-body .cap{font-size:14.5px;color:var(--slate);margin:14px 0 0}
+.ctrl{margin-bottom:15px}
+.ctrl label{display:flex;justify-content:flex-start;align-items:baseline;gap:.28em;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:13px;color:var(--slate);margin-bottom:5px}
+.ctrl label .v{font-weight:600;color:var(--crimson);font-variant-numeric:tabular-nums;margin-left:auto}
+input[type=range]{width:100%;accent-color:var(--crimson);height:22px}
+input[type=range]:focus-visible{outline:2.5px solid var(--crimson-soft);outline-offset:3px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.chip{font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:13px;border:1.5px solid var(--rule-strong);background:#fff;color:var(--slate);padding:7px 13px;border-radius:2px;cursor:pointer}
+.chip[aria-pressed=true]{background:var(--ink);border-color:var(--ink);color:#fff}
+.chip:focus-visible{outline:2.5px solid var(--crimson-soft);outline-offset:2px}
+.readout{background:var(--panel);padding:13px 16px;margin-top:14px;font-size:15px;border-radius:2px}
+.readout div{display:flex;justify-content:space-between;gap:12px;padding:3px 0}
+.readout .k{color:var(--slate);font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:13px}
+.readout .val{font-variant-numeric:tabular-nums;font-weight:600}
+.readout .hl{color:var(--crimson)}
+svg{display:block;max-width:100%;height:auto;margin:0 auto}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.ledger{border:1px solid var(--rule);border-radius:2px;padding:13px 15px;font-size:14.5px}
+.ledger .lh{font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:12.5px;font-weight:600;margin-bottom:8px}
+.ledger div.r{display:flex;justify-content:space-between;gap:10px;padding:2px 0;color:var(--slate)}
+.ledger div.r .a{font-variant-numeric:tabular-nums;font-weight:600;color:var(--ink)}
+.ledger.dead{opacity:.45}
+.ledger.live{border-color:var(--crimson)}
+.ledger .tot{border-top:1px solid var(--rule-strong);margin-top:7px;padding-top:7px;font-weight:700;color:var(--ink)}
+.toc{background:var(--panel);padding:20px 24px;margin:0 0 40px;border-radius:2px}
+.toc ol{margin:0;padding-left:20px;font-size:15.5px}
+.toc li{margin-bottom:6px}
+.toc a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--rule-strong)}
+.toc a:hover{color:var(--crimson);border-color:var(--crimson)}
+.toc .tp{font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:12.5px;color:var(--crimson);font-weight:600;letter-spacing:.05em;margin:14px 0 6px}
+.toc .tp:first-child{margin-top:0}
+.toc .tr{margin:8px 0 0 20px;font-size:14.5px}
+.toc .tr a{color:var(--crimson);border-color:var(--crimson-soft)}
+h2.rv{border-top:3px solid var(--crimson)}
+.closing{border-top:3px solid var(--ink);margin-top:70px;padding-top:26px}
+.card{border:1.5px solid var(--ink);background:#fff;padding:20px 24px;margin:30px 0;border-radius:2px}
+.card h3{margin-top:0}
+.card table{font-size:14.5px;margin:12px 0}
+@media(max-width:620px){.grid2{grid-template-columns:1fr}h1{font-size:31px}h2{font-size:22px}.part h2.pt{font-size:24px}body{font-size:16.5px}.wrap{padding:0 18px 90px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+/* standalone-embed overrides */
+body { background:#fff; font-size:16px; }
+.wrap { max-width:820px; padding:0 18px 22px; }
+.embed-head { border-bottom:2px solid var(--ink); padding:18px 0 12px; margin-bottom:4px; }
+.embed-head .kicker { font-family:'Helvetica Neue',Helvetica,Arial,sans-serif; font-size:11.5px;
+  letter-spacing:.09em; color:var(--crimson); font-weight:600; margin:0 0 6px; text-transform:uppercase; }
+.embed-head h1 { font-size:21px; margin:0; letter-spacing:-.012em; }
+.w { margin:18px 0 0; }
+.embed-foot { font-family:'Helvetica Neue',Helvetica,Arial,sans-serif; font-size:11.5px;
+  color:var(--muted); margin:18px 0 0; padding-top:10px; border-top:1px solid var(--rule); }
+@media(max-width:620px) { .grid2 { grid-template-columns:1fr; } }
+</style></head>
+<body><div class="wrap">
+<div class="embed-head"><p class="kicker">Section 3 — the forward is a band</p><h1>Cash and carry, both directions</h1></div>
+<div class="w">
+<div class="w-head">Cash and carry, both directions</div>
+<div class="w-body">
+<div class="grid2">
+<div>
+  <div class="ctrl"><label>Spot <span class="m">S<sub>0</sub></span><span class="v" id="v-cc-s">100</span></label><input type="range" id="cc-s" min="40" max="200" step="1" value="100"></div>
+  <div class="ctrl"><label>Years <span class="m">T</span><span class="v" id="v-cc-t">1.00</span></label><input type="range" id="cc-t" min="0.08" max="3" step="0.02" value="1"></div>
+  <div class="ctrl"><label>Base rate <span class="m">r</span><span class="v" id="v-cc-r">5.00%</span></label><input type="range" id="cc-r" min="0" max="12" step="0.1" value="5"></div>
+  <div class="ctrl"><label>Your funding spread (each side)<span class="v" id="v-cc-sp">0.50%</span></label><input type="range" id="cc-sp" min="0" max="3" step="0.05" value="0.5"></div>
+</div>
+<div>
+  <div class="ctrl"><label>Stock borrow fee <span class="m">b</span><span class="v" id="v-cc-b">0.40%</span></label><input type="range" id="cc-b" min="0" max="15" step="0.1" value="0.4"></div>
+  <div class="ctrl"><label>Dividend yield <span class="m">q</span><span class="v" id="v-cc-q">0.00%</span></label><input type="range" id="cc-q" min="0" max="8" step="0.1" value="0"></div>
+  <div class="ctrl"><label>Market forward price<span class="v" id="v-cc-f">105.13</span></label><input type="range" id="cc-f" min="80" max="140" step="0.01" value="105.13"></div>
+  <div class="readout" style="margin-top:0">
+    <div><span class="k">Your borrowing rate</span><span class="val" id="o-cc-rb">5.50%</span></div>
+    <div><span class="k">Your deposit rate</span><span class="val" id="o-cc-rl">4.50%</span></div>
+  </div>
+</div>
+</div>
+<svg id="cc-svg" viewBox="0 0 680 146" role="img" aria-label="The no-arbitrage band for the forward price, with the market forward marked"></svg>
+<div class="grid2" id="cc-panels"></div>
+<p class="cap">Start by setting the funding spread and the borrow fee to zero: the band collapses to a single point and the classroom formula reappears. Then widen them and watch how far the market forward has to move before either trade is worth doing. On a hard-to-borrow name, push the fee to 10% and see which side of the band disappears over the horizon.</p>
+</div>
+</div>
+<p class="embed-foot">Set the funding spread and borrow fee to zero and the band collapses to the classroom forward. Widen them and watch how far the market forward must move before either trade pays. On a hard-to-borrow name, push the fee to 10% and see which side of the band disappears.</p>
+</div>
+<script>
+
+function t(id){var e=document.getElementById(id);e.classList.toggle('open');
+  var b=e.previousElementSibling;b.textContent=e.classList.contains('open')?'Hide answer':'Show answer';}
+function N(x){var a1=0.254829592,a2=-0.284496736,a3=1.421413741,a4=-1.453152027,a5=1.061405429,p=0.3275911;
+  var s=x<0?-1:1;x=Math.abs(x)/Math.SQRT2;var tt=1/(1+p*x);
+  var y=1-(((((a5*tt+a4)*tt+a3)*tt+a2)*tt+a1)*tt)*Math.exp(-x*x);return 0.5*(1+s*y);}
+function bs(S,K,r,q,v,T){ // European call and put with continuous yield q
+  if(T<=0){return {c:Math.max(S-K,0),p:Math.max(K-S,0)};}
+  var sd=v*Math.sqrt(T), d1=(Math.log(S/K)+(r-q+v*v/2)*T)/sd, d2=d1-sd;
+  var c=S*Math.exp(-q*T)*N(d1)-K*Math.exp(-r*T)*N(d2);
+  var p=K*Math.exp(-r*T)*N(-d2)-S*Math.exp(-q*T)*N(-d1);
+  return {c:c,p:p};}
+function f(x,n){return x.toFixed(n===undefined?2:n);}
+function sg(x,n){return (x>=0?'+':'\u2212')+f(Math.abs(x),n);}
+var C={ink:'#1c2530',slate:'#3d4d5c',muted:'#70808f',crim:'#9b2335',crimS:'#c4415a',rule:'#d5dbe0',panel:'#f1f4f6',pos:'#1f6b45'};
+function el(tag,at){var e=document.createElementNS('http://www.w3.org/2000/svg',tag);for(var k in at)e.setAttribute(k,at[k]);return e;}
+function txt(x,y,s,at){var e=el('text',at||{});e.setAttribute('x',x);e.setAttribute('y',y);
+  e.setAttribute('font-family',"'Helvetica Neue',Helvetica,Arial,sans-serif");
+  if(!e.getAttribute('font-size'))e.setAttribute('font-size','12');
+  if(!e.getAttribute('fill'))e.setAttribute('fill',C.slate);e.textContent=s;return e;}
+function g(id){return document.getElementById(id);}
+function bind(ids,fn){ids.forEach(function(i){g(i).addEventListener('input',fn);});fn();}
+
+/* ================= CASH AND CARRY BAND ================= */
+function ccDraw(){
+  var S=+g('cc-s').value,T=+g('cc-t').value,r=+g('cc-r').value/100,sp=+g('cc-sp').value/100,
+      bf=+g('cc-b').value/100,q=+g('cc-q').value/100,Fm=+g('cc-f').value;
+  g('v-cc-s').textContent=S;g('v-cc-t').textContent=f(T);g('v-cc-r').textContent=f(r*100)+'%';
+  g('v-cc-sp').textContent=f(sp*100)+'%';g('v-cc-b').textContent=f(bf*100)+'%';g('v-cc-q').textContent=f(q*100)+'%';
+  g('v-cc-f').textContent=f(Fm);
+  var rb=r+sp,rl=r-sp;
+  g('o-cc-rb').textContent=f(rb*100)+'%';g('o-cc-rl').textContent=f(rl*100)+'%';
+  var Fhi=S*Math.exp((rb-q)*T),Flo=S*Math.exp((rl-bf-q)*T),Fmid=S*Math.exp((r-q)*T);
+  var s=g('cc-svg');s.innerHTML='';
+  var L=40,R=640,AX=78;
+  var lo=Math.min(Flo,Fm,Fmid)*0.97,hi=Math.max(Fhi,Fm,Fmid)*1.03;
+  function X(v){return L+(v-lo)/(hi-lo)*(R-L);}
+  s.appendChild(el('rect',{x:X(Flo),y:AX-16,width:Math.max(X(Fhi)-X(Flo),1),height:32,fill:C.panel,stroke:C.rule}));
+  s.appendChild(el('line',{x1:L,y1:AX,x2:R,y2:AX,stroke:C.ink,'stroke-width':1.3}));
+  function mk(v,lab,col,y,anchor){
+    s.appendChild(el('line',{x1:X(v),y1:AX-22,x2:X(v),y2:AX+22,stroke:col,'stroke-width':1.6}));
+    s.appendChild(txt(X(v),y,lab,{'font-size':'11.5',fill:col,'text-anchor':anchor||'middle','font-weight':'600'}));}
+  mk(Flo,'floor '+f(Flo),C.ink,AX+38,'middle');
+  mk(Fhi,'ceiling '+f(Fhi),C.ink,AX+38,'middle');
+  s.appendChild(el('line',{x1:X(Fmid),y1:AX-12,x2:X(Fmid),y2:AX+12,stroke:C.muted,'stroke-width':1,'stroke-dasharray':'3 3'}));
+  s.appendChild(txt(X(Fmid),AX+60,'classroom F '+f(Fmid),{'font-size':'11',fill:C.muted,'text-anchor':'middle'}));
+  s.appendChild(el('circle',{cx:X(Fm),cy:AX,r:6,fill:C.crim}));
+  s.appendChild(txt(X(Fm),AX-32,'market forward '+f(Fm),{'font-size':'12',fill:C.crim,'text-anchor':'middle','font-weight':'700'}));
+  s.appendChild(txt(L,16,'no trade inside the shaded band',{'font-size':'11.5',fill:C.muted}));
+  var live=Fm>Fhi?'cc':(Fm<Flo?'rev':null);
+  function ledger(kind){
+    var on=(live===kind),win=on?(kind==='cc'?Fm-Fhi:Flo-Fm):0;
+    var head=kind==='cc'?'Cash and carry':'Reverse cash and carry';
+    var rows=kind==='cc'
+      ?[['sell the forward at',f(Fm)],['borrow cash at',f(rb*100)+'%'],['buy and hold the share',f(-S)],['collect dividends at',f(q*100)+'%'],['at T: deliver, repay '+f(Fhi),'']]
+      :[['buy the forward at',f(Fm)],['borrow the share, fee',f(bf*100)+'%'],['sell it, receive',f(S)],['lend the proceeds at',f(rl*100)+'%'],['at T: take delivery, return it','']];
+    var h='<div class="ledger '+(on?'live':'dead')+'"><div class="lh">'+head+(on?'':' (not for you)')+'</div>';
+    rows.forEach(function(rw){h+='<div class="r"><span>'+rw[0]+'</span><span class="a">'+rw[1]+'</span></div>';});
+    h+='<div class="r tot"><span>locked in per share</span><span class="a">'+(on?f(win):'0.00')+'</span></div></div>';
+    return h;}
+  g('cc-panels').innerHTML=ledger('cc')+ledger('rev');
+}
+bind(['cc-s','cc-t','cc-r','cc-sp','cc-b','cc-q','cc-f'],ccDraw);
+
+
+</script></body></html>

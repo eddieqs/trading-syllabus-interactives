@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Conversion and Reversal Band</title>
+<style>
+
+:root{
+  --ink:#1c2530;--slate:#3d4d5c;--muted:#70808f;
+  --crimson:#9b2335;--crimson-soft:#c4415a;
+  --paper:#fbfaf8;--panel:#f1f4f6;--panel-warm:#f7f3ef;
+  --rule:#d5dbe0;--rule-strong:#aab5bf;
+  --pos:#1f6b45;--neg:#9b2335;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:Georgia,'Times New Roman',serif;font-size:17px;line-height:1.68}
+.wrap{max-width:760px;margin:0 auto;padding:0 26px 120px}
+h1,h2,h3,h4,.sans{font-family:'Helvetica Neue',Helvetica,Arial,sans-serif}
+.masthead{border-bottom:3px solid var(--ink);padding:64px 0 26px;margin-bottom:44px}
+.masthead .kicker{font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:12.5px;letter-spacing:.09em;color:var(--crimson);font-weight:600;margin:0 0 14px}
+h1{font-size:40px;line-height:1.14;font-weight:700;letter-spacing:-.021em;margin:0 0 16px}
+.standfirst{font-size:19px;color:var(--slate);margin:0;line-height:1.6}
+.part{margin:80px 0 0;padding:14px 0 0;border-top:3px solid var(--ink)}
+.part .pk{font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:12.5px;letter-spacing:.09em;color:var(--crimson);font-weight:600;margin:0 0 6px}
+.part h2.pt{border:none;margin:0;padding:0;font-size:29px}
+.part p.pl{color:var(--slate);font-size:16.5px;margin:10px 0 0}
+h2{font-size:25px;font-weight:700;letter-spacing:-.014em;margin:66px 0 6px;padding-top:26px;border-top:1px solid var(--rule);line-height:1.24}
+h2 .num{color:var(--crimson);font-variant-numeric:tabular-nums;margin-right:.5em}
+h3{font-size:18.5px;font-weight:600;margin:38px 0 10px;color:var(--ink)}
+h4{font-size:15px;font-weight:600;margin:24px 0 6px;color:var(--slate)}
+p{margin:0 0 16px}
+ul,ol{margin:0 0 18px;padding-left:22px}
+li{margin-bottom:9px}
+strong,b{font-weight:700}
+a{color:var(--crimson);text-decoration-thickness:1px;text-underline-offset:2px}
+.goal{background:var(--panel-warm);border-left:3px solid var(--crimson);padding:15px 20px;margin:18px 0 30px;font-size:15.5px;color:var(--slate)}
+.goal b{color:var(--ink)}
+.m{font-family:Georgia,serif;font-style:italic;white-space:nowrap}
+.m .fn{font-style:normal}
+sub,sup{font-size:.7em;font-style:normal}
+.eq{text-align:center;margin:26px 0;font-size:19px;font-family:Georgia,serif;line-height:1.9}
+.eq.boxed{border:1.5px solid var(--ink);background:#fff;padding:18px 14px;border-radius:2px}
+.eq .label{display:block;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:11.5px;font-style:normal;color:var(--muted);letter-spacing:.05em;margin-top:9px}
+.eq.small{font-size:17px}
+.frac{display:inline-block;vertical-align:middle;text-align:center;font-size:.86em;margin:0 .18em}
+.frac .top{display:block;border-bottom:1px solid var(--ink);padding:0 .3em}
+.frac .bot{display:block;padding:0 .3em}
+table{border-collapse:collapse;width:100%;margin:24px 0;font-size:15.5px}
+th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--rule);vertical-align:top}
+th{font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:12.5px;font-weight:600;color:var(--slate);border-bottom:1.5px solid var(--rule-strong)}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+td.pos{color:var(--pos)}td.neg{color:var(--neg)}
+tr.total td{font-weight:700;border-bottom:none;border-top:1.5px solid var(--ink);background:var(--panel)}
+.note{background:var(--panel);padding:16px 20px;margin:24px 0;border-radius:2px;font-size:16px}
+.note .h{display:block;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:12.5px;font-weight:600;color:var(--crimson);letter-spacing:.05em;margin-bottom:7px}
+.note p:last-child{margin-bottom:0}
+.snag{border:1px solid var(--crimson);background:#fff;padding:17px 21px;margin:26px 0;border-radius:2px}
+.snag .h{display:block;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:12.5px;font-weight:700;color:var(--crimson);letter-spacing:.04em;margin-bottom:8px}
+.snag p:last-child{margin-bottom:0}
+.verdict{font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:14px;font-weight:600;padding:9px 14px;border-radius:2px;margin:14px 0 6px;display:inline-block}
+.verdict.yes{background:#e6f1eb;color:var(--pos)}
+.verdict.no{background:#f7e6e9;color:var(--neg)}
+.q{border-top:1.5px solid var(--ink);border-bottom:1.5px solid var(--ink);padding:18px 0;margin:34px 0}
+.q .qh{font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:12.5px;font-weight:600;color:var(--crimson);letter-spacing:.05em;margin-bottom:10px}
+.q p{margin:0 0 14px}
+.q button{font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:13.5px;font-weight:500;background:var(--ink);color:#fff;border:none;padding:8px 16px;border-radius:2px;cursor:pointer}
+.q button:hover{background:var(--crimson)}
+.q button:focus-visible{outline:2.5px solid var(--crimson-soft);outline-offset:2px}
+.ans{display:none;margin-top:16px;padding-left:16px;border-left:2px solid var(--rule-strong);font-size:16px}
+.ans.open{display:block}
+.ans p:last-child{margin-bottom:0}
+.w{border:1px solid var(--rule-strong);background:#fff;margin:32px 0;border-radius:3px;overflow:hidden}
+.w-head{background:var(--ink);color:#fff;padding:11px 18px;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:13px;font-weight:600;letter-spacing:.02em}
+.w-body{padding:20px}
+.w-body .cap{font-size:14.5px;color:var(--slate);margin:14px 0 0}
+.ctrl{margin-bottom:15px}
+.ctrl label{display:flex;justify-content:flex-start;align-items:baseline;gap:.28em;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:13px;color:var(--slate);margin-bottom:5px}
+.ctrl label .v{font-weight:600;color:var(--crimson);font-variant-numeric:tabular-nums;margin-left:auto}
+input[type=range]{width:100%;accent-color:var(--crimson);height:22px}
+input[type=range]:focus-visible{outline:2.5px solid var(--crimson-soft);outline-offset:3px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.chip{font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:13px;border:1.5px solid var(--rule-strong);background:#fff;color:var(--slate);padding:7px 13px;border-radius:2px;cursor:pointer}
+.chip[aria-pressed=true]{background:var(--ink);border-color:var(--ink);color:#fff}
+.chip:focus-visible{outline:2.5px solid var(--crimson-soft);outline-offset:2px}
+.readout{background:var(--panel);padding:13px 16px;margin-top:14px;font-size:15px;border-radius:2px}
+.readout div{display:flex;justify-content:space-between;gap:12px;padding:3px 0}
+.readout .k{color:var(--slate);font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:13px}
+.readout .val{font-variant-numeric:tabular-nums;font-weight:600}
+.readout .hl{color:var(--crimson)}
+svg{display:block;max-width:100%;height:auto;margin:0 auto}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.ledger{border:1px solid var(--rule);border-radius:2px;padding:13px 15px;font-size:14.5px}
+.ledger .lh{font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:12.5px;font-weight:600;margin-bottom:8px}
+.ledger div.r{display:flex;justify-content:space-between;gap:10px;padding:2px 0;color:var(--slate)}
+.ledger div.r .a{font-variant-numeric:tabular-nums;font-weight:600;color:var(--ink)}
+.ledger.dead{opacity:.45}
+.ledger.live{border-color:var(--crimson)}
+.ledger .tot{border-top:1px solid var(--rule-strong);margin-top:7px;padding-top:7px;font-weight:700;color:var(--ink)}
+.toc{background:var(--panel);padding:20px 24px;margin:0 0 40px;border-radius:2px}
+.toc ol{margin:0;padding-left:20px;font-size:15.5px}
+.toc li{margin-bottom:6px}
+.toc a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--rule-strong)}
+.toc a:hover{color:var(--crimson);border-color:var(--crimson)}
+.toc .tp{font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:12.5px;color:var(--crimson);font-weight:600;letter-spacing:.05em;margin:14px 0 6px}
+.toc .tp:first-child{margin-top:0}
+.toc .tr{margin:8px 0 0 20px;font-size:14.5px}
+.toc .tr a{color:var(--crimson);border-color:var(--crimson-soft)}
+h2.rv{border-top:3px solid var(--crimson)}
+.closing{border-top:3px solid var(--ink);margin-top:70px;padding-top:26px}
+.card{border:1.5px solid var(--ink);background:#fff;padding:20px 24px;margin:30px 0;border-radius:2px}
+.card h3{margin-top:0}
+.card table{font-size:14.5px;margin:12px 0}
+@media(max-width:620px){.grid2{grid-template-columns:1fr}h1{font-size:31px}h2{font-size:22px}.part h2.pt{font-size:24px}body{font-size:16.5px}.wrap{padding:0 18px 90px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+/* standalone-embed overrides */
+body { background:#fff; font-size:16px; }
+.wrap { max-width:820px; padding:0 18px 22px; }
+.embed-head { border-bottom:2px solid var(--ink); padding:18px 0 12px; margin-bottom:4px; }
+.embed-head .kicker { font-family:'Helvetica Neue',Helvetica,Arial,sans-serif; font-size:11.5px;
+  letter-spacing:.09em; color:var(--crimson); font-weight:600; margin:0 0 6px; text-transform:uppercase; }
+.embed-head h1 { font-size:21px; margin:0; letter-spacing:-.012em; }
+.w { margin:18px 0 0; }
+.embed-foot { font-family:'Helvetica Neue',Helvetica,Arial,sans-serif; font-size:11.5px;
+  color:var(--muted); margin:18px 0 0; padding-top:10px; border-top:1px solid var(--rule); }
+@media(max-width:620px) { .grid2 { grid-template-columns:1fr; } }
+</style></head>
+<body><div class="wrap">
+<div class="embed-head"><p class="kicker">Section 8 — the loan inside the options</p><h1>Conversion or reversal, with your own band</h1></div>
+<div class="w">
+<div class="w-head">Conversion or reversal, with your own band</div>
+<div class="w-body">
+<div class="grid2">
+<div>
+  <div class="ctrl"><label>Spot <span class="m">S<sub>0</sub></span><span class="v" id="v-cv-s">100</span></label><input type="range" id="cv-s" min="80" max="120" step="0.5" value="100"></div>
+  <div class="ctrl"><label>Strike <span class="m">K</span><span class="v" id="v-cv-k">100</span></label><input type="range" id="cv-k" min="80" max="120" step="1" value="100"></div>
+  <div class="ctrl"><label>Years <span class="m">T</span><span class="v" id="v-cv-t">1.00</span></label><input type="range" id="cv-t" min="0.08" max="3" step="0.02" value="1"></div>
+  <div class="ctrl"><label>Call price <span class="m">C</span><span class="v" id="v-cv-c">8.12</span></label><input type="range" id="cv-c" min="0" max="30" step="0.01" value="8.12"></div>
+  <div class="ctrl"><label>Put price <span class="m">P</span><span class="v" id="v-cv-p">3.24</span></label><input type="range" id="cv-p" min="0" max="30" step="0.01" value="3.24"></div>
+</div>
+<div>
+  <div class="ctrl"><label>Your cash borrowing rate <span class="m">r<sub>b</sub></span><span class="v" id="v-cv-rb">5.50%</span></label><input type="range" id="cv-rb" min="0" max="12" step="0.1" value="5.5"></div>
+  <div class="ctrl"><label>Your deposit rate <span class="m">r<sub>l</sub></span><span class="v" id="v-cv-rl">4.50%</span></label><input type="range" id="cv-rl" min="0" max="12" step="0.1" value="4.5"></div>
+  <div class="ctrl"><label>Stock borrow fee <span class="m">b</span><span class="v" id="v-cv-b">0.40%</span></label><input type="range" id="cv-b" min="0" max="15" step="0.1" value="0.4"></div>
+  <div class="chips" style="margin-bottom:12px">
+    <button class="chip" id="cv-lend" aria-pressed="false" onclick="cvLend()">I can lend the shares I own</button>
+  </div>
+  <div class="readout" style="margin-top:0">
+    <div><span class="k">Rate implied by the options</span><span class="val hl" id="o-cv-imp">5.00%</span></div>
+    <div><span class="k">Conversion earns above</span><span class="val" id="o-cv-hi">5.50%</span></div>
+    <div><span class="k">Reversal earns below</span><span class="val" id="o-cv-lo">4.10%</span></div>
+    <div><span class="k">Options-implied forward</span><span class="val" id="o-cv-fo">105.13</span></div>
+    <div><span class="k">Implied borrow, against the midpoint of your rates</span><span class="val" id="o-cv-bi">0.00%</span></div>
+  </div>
+</div>
+</div>
+<svg id="cv-svg" viewBox="0 0 680 110" role="img" aria-label="Implied rate against your funding band"></svg>
+<p id="cv-trade" style="font-size:15px;margin:16px 0 0;padding:12px 15px;background:var(--panel-warm);border-left:3px solid var(--crimson)">Implied rate sits inside your band. No trade.</p>
+<p class="cap">Push the call price up and watch the implied rate climb through your borrowing rate: the conversion appears. Push the put up and the reversal appears, unless you raise the borrow fee first, in which case it never does, because only the reversal shorts the share. Now switch on "I can lend the shares" and raise the fee: the conversion bound drops too, and the same rich put that no one else can arbitrage becomes a good lend for you. The implied borrow line reads the fee straight out of the option prices.</p>
+</div>
+</div>
+<p class="embed-foot">Push the call price up and watch the implied rate climb through your borrowing rate: the conversion appears. Push the put up and the reversal appears — unless you raise the borrow fee first, because only the reversal shorts the share. Switch on “I can lend the shares” and raise the fee: the conversion bound drops too.</p>
+</div>
+<script>
+
+function t(id){var e=document.getElementById(id);e.classList.toggle('open');
+  var b=e.previousElementSibling;b.textContent=e.classList.contains('open')?'Hide answer':'Show answer';}
+function N(x){var a1=0.254829592,a2=-0.284496736,a3=1.421413741,a4=-1.453152027,a5=1.061405429,p=0.3275911;
+  var s=x<0?-1:1;x=Math.abs(x)/Math.SQRT2;var tt=1/(1+p*x);
+  var y=1-(((((a5*tt+a4)*tt+a3)*tt+a2)*tt+a1)*tt)*Math.exp(-x*x);return 0.5*(1+s*y);}
+function bs(S,K,r,q,v,T){ // European call and put with continuous yield q
+  if(T<=0){return {c:Math.max(S-K,0),p:Math.max(K-S,0)};}
+  var sd=v*Math.sqrt(T), d1=(Math.log(S/K)+(r-q+v*v/2)*T)/sd, d2=d1-sd;
+  var c=S*Math.exp(-q*T)*N(d1)-K*Math.exp(-r*T)*N(d2);
+  var p=K*Math.exp(-r*T)*N(-d2)-S*Math.exp(-q*T)*N(-d1);
+  return {c:c,p:p};}
+function f(x,n){return x.toFixed(n===undefined?2:n);}
+function sg(x,n){return (x>=0?'+':'\u2212')+f(Math.abs(x),n);}
+var C={ink:'#1c2530',slate:'#3d4d5c',muted:'#70808f',crim:'#9b2335',crimS:'#c4415a',rule:'#d5dbe0',panel:'#f1f4f6',pos:'#1f6b45'};
+function el(tag,at){var e=document.createElementNS('http://www.w3.org/2000/svg',tag);for(var k in at)e.setAttribute(k,at[k]);return e;}
+function txt(x,y,s,at){var e=el('text',at||{});e.setAttribute('x',x);e.setAttribute('y',y);
+  e.setAttribute('font-family',"'Helvetica Neue',Helvetica,Arial,sans-serif");
+  if(!e.getAttribute('font-size'))e.setAttribute('font-size','12');
+  if(!e.getAttribute('fill'))e.setAttribute('fill',C.slate);e.textContent=s;return e;}
+function g(id){return document.getElementById(id);}
+function bind(ids,fn){ids.forEach(function(i){g(i).addEventListener('input',fn);});fn();}
+
+/* ================= CONVERSION / REVERSAL BAND ================= */
+var cvCanLend=false;
+function cvLend(){cvCanLend=!cvCanLend;g('cv-lend').setAttribute('aria-pressed',cvCanLend);cvDraw();}
+function cvDraw(){
+  var S=+g('cv-s').value,K=+g('cv-k').value,T=+g('cv-t').value,c=+g('cv-c').value,p=+g('cv-p').value,
+      rb=+g('cv-rb').value/100,rl=+g('cv-rl').value/100,bf=+g('cv-b').value/100;
+  g('v-cv-s').textContent=f(S,1);g('v-cv-k').textContent=K;g('v-cv-t').textContent=f(T);
+  g('v-cv-c').textContent=f(c);g('v-cv-p').textContent=f(p);
+  g('v-cv-rb').textContent=f(rb*100)+'%';g('v-cv-rl').textContent=f(rl*100)+'%';g('v-cv-b').textContent=f(bf*100)+'%';
+  var pv=S-(c-p), imp=(pv>0)?-Math.log(pv/K)/T:NaN, fee=bf*S/K, lo=rl-fee;
+  if(cvCanLend){rb=rb-fee;}
+  var rmid=(+g('cv-rb').value/100 + rl)/2, Fo=K+(c-p)*Math.exp(rmid*T), bimp=rmid-(isNaN(imp)?rmid:imp);
+  g('o-cv-fo').textContent=f(Fo); g('o-cv-bi').textContent=(bimp>=0?'':'\u2212')+f(Math.abs(bimp)*100)+'%';
+  g('o-cv-imp').textContent=isNaN(imp)?'n/a':f(imp*100)+'%';
+  g('o-cv-hi').textContent=f(rb*100)+'%';g('o-cv-lo').textContent=f(lo*100)+'%';
+  var s=g('cv-svg');s.innerHTML='';
+  var L=40,R=640,AX=62;
+  var vals=[rb,lo,isNaN(imp)?rb:imp];
+  var mn=Math.min.apply(null,vals)-0.01,mx=Math.max.apply(null,vals)+0.01;
+  function X(v){return L+(v-mn)/(mx-mn)*(R-L);}
+  s.appendChild(el('rect',{x:X(lo),y:AX-14,width:Math.max(X(rb)-X(lo),1),height:28,fill:C.panel,stroke:C.rule}));
+  s.appendChild(el('line',{x1:L,y1:AX,x2:R,y2:AX,stroke:C.ink,'stroke-width':1.3}));
+  function mk(v,lab,col,y){s.appendChild(el('line',{x1:X(v),y1:AX-20,x2:X(v),y2:AX+20,stroke:col,'stroke-width':1.6}));
+    s.appendChild(txt(X(v),y,lab,{'font-size':'11.5',fill:col,'text-anchor':'middle','font-weight':'600'}));}
+  mk(lo,'reversal below '+f(lo*100)+'%',C.ink,AX+36);mk(rb,'conversion above '+f(rb*100)+'%',C.ink,AX+36);
+  if(!isNaN(imp)){s.appendChild(el('circle',{cx:X(imp),cy:AX,r:6,fill:C.crim}));
+    s.appendChild(txt(X(imp),AX-28,'options imply '+f(imp*100)+'%',{'font-size':'12',fill:C.crim,'text-anchor':'middle','font-weight':'700'}));}
+  s.appendChild(txt(L,14,'rate implied by C \u2212 P = S \u2212 Ke\u207b\u02b3\u1d40, against your band',{'font-size':'11.5',fill:C.muted}));
+  var e=g('cv-trade');
+  if(isNaN(imp)){e.innerHTML='C \u2212 P exceeds the share price, which no rate can explain. That is a raw arbitrage before any funding question arises.';}
+  else if(imp>rb){var gain=K*(Math.exp(-rb*T)-Math.exp(-imp*T));
+    e.innerHTML='<b>Conversion.</b> Sell the call, buy the put, buy the share'+(cvCanLend?' and lend it out':'')+'. You lend '+f(pv)+' to the options market at '+f(imp*100)+'% and your effective funding is '+f(rb*100)+'%'+(cvCanLend?' after the lending fee':'')+'. Locked in: <b>'+f(gain)+'</b> per share today, no delta, no vega, no gamma.';}
+  else if(imp<lo){var gain2=K*(Math.exp(-imp*T)-Math.exp(-lo*T));
+    e.innerHTML='<b>Reversal.</b> Buy the call, sell the put, borrow and short the share. You borrow '+f(pv)+' from the options market at '+f(imp*100)+'% and deposit at '+f(rl*100)+'% less '+f(bf*100)+'% borrow fee. Locked in: <b>'+f(gain2)+'</b> per share today.';}
+  else{e.innerHTML='Implied rate of '+f(imp*100)+'% sits inside your band of '+f(lo*100)+'% to '+f(rb*100)+'%. <b>No trade for you.</b> A desk with tighter funding or cheaper borrow may see one.';}
+}
+bind(['cv-s','cv-k','cv-t','cv-c','cv-p','cv-rb','cv-rl','cv-b'],cvDraw);
+
+</script></body></html>
